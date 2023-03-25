@@ -63,10 +63,10 @@ Cdialog2Dlg::Cdialog2Dlg(CWnd* pParent /*=nullptr*/)
 void Cdialog2Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Radio(pDX, IDC_RADIO1, m_fruit);
+	/*DDX_Radio(pDX, IDC_RADIO1, m_fruit);
 	DDX_Check(pDX, IDC_CHECK1, m_cloths);
 	DDX_Check(pDX, IDC_CHECK2, m_pants);
-	DDX_Check(pDX, IDC_CHECK3, m_hats);
+	DDX_Check(pDX, IDC_CHECK3, m_hats);*/
 }
 
 BEGIN_MESSAGE_MAP(Cdialog2Dlg, CDialogEx)
@@ -74,7 +74,7 @@ BEGIN_MESSAGE_MAP(Cdialog2Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTN_CHECK, &Cdialog2Dlg::OnBnClickedBtnCheck)
-	ON_BN_CLICKED(IDC_RADIO1, &Cdialog2Dlg::OnBnClickedRadio1)
+	/*ON_BN_CLICKED(IDC_RADIO1, &Cdialog2Dlg::OnBnClickedRadio1)*/
 END_MESSAGE_MAP()
 
 
@@ -110,6 +110,11 @@ BOOL Cdialog2Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
+	list->AddString(_T("上海")); //把text的内容添加到列表框中
+	list->AddString(_T("深圳"));
+	list->AddString(_T("北京"));
+	list->AddString(_T("广州"));
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -168,13 +173,29 @@ HCURSOR Cdialog2Dlg::OnQueryDragIcon()
 void Cdialog2Dlg::OnBnClickedBtnCheck()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	//同步控件与变量
-	UpdateData();
+	// 获取文本框的内容
+	CString text;
 
-	CString str;
-	// 整形转字符串
-	str.Format(_T("上衣=%d\t裤子=%d\t帽子=%d\n%d"), m_cloths, m_pants, m_hats, m_fruit);
-	MessageBox(str);
+	////得到文本框对象
+	//CEdit* edit = (CEdit*)GetDlgItem(IDC_EDIT1);
+	//edit->GetWindowText(text); //把文本框的内容放入text中
+	//edit->SetWindowText(_T("")); //把文本框输入内容设置为空（清空输入的内容）
+
+	//// 将文本添加到列表框
+	//CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
+	//if (!(text.IsEmpty()))
+	//{
+	//	list->AddString(text); //把text的内容添加到列表框中
+	//}
+
+	CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
+	int choose = list->GetCurSel();
+	list->GetText(choose, text);
+	MessageBox(text);
+
+	CEdit* edit = (CEdit*)GetDlgItem(IDC_EDIT1);
+	edit->SetWindowText(text);
+
 }
 
 
