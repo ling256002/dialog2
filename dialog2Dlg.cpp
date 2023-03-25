@@ -110,11 +110,19 @@ BOOL Cdialog2Dlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
-	list->AddString(_T("上海")); //把text的内容添加到列表框中
-	list->AddString(_T("深圳"));
-	list->AddString(_T("北京"));
-	list->AddString(_T("广州"));
+	//CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
+	//list->AddString(_T("上海")); //把text的内容添加到列表框中
+	//list->AddString(_T("深圳"));
+	//list->AddString(_T("北京"));
+	//list->AddString(_T("广州"));
+	CComboBox* combo = (CComboBox*)GetDlgItem(IDC_COMBO1);
+	combo->AddString(_T("上海"));
+	combo->AddString(_T("深圳"));
+	combo->AddString(_T("北京"));
+	combo->AddString(_T("广州"));
+	combo->SetCurSel(0); //设置默认选项
+
+	
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -188,13 +196,18 @@ void Cdialog2Dlg::OnBnClickedBtnCheck()
 	//	list->AddString(text); //把text的内容添加到列表框中
 	//}
 
-	CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
+	/*CListBox* list = (CListBox*)GetDlgItem(IDC_LIST1);
 	int choose = list->GetCurSel();
 	list->GetText(choose, text);
 	MessageBox(text);
 
 	CEdit* edit = (CEdit*)GetDlgItem(IDC_EDIT1);
-	edit->SetWindowText(text);
+	edit->SetWindowText(text);*/
+
+	CComboBox* combo = (CComboBox*)GetDlgItem(IDC_COMBO1);
+	int choose = combo->GetCurSel();
+	combo->GetLBText(choose, text);
+	MessageBox(text);
 
 }
 
